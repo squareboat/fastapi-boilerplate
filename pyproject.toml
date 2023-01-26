@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "fastapi-boilerplate"
+version = "0.1.0"
+description = "FastApi Boilerplate"
+authors = ["Aayush Kurup <aayushkurup786@outlook.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "fastapi_boilerplate"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.89.1"
+dependency-injector = "^4.41.0"
+uvicorn = "^0.20.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

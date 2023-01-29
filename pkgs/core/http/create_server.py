@@ -2,8 +2,8 @@
 from fastapi import FastAPI
 from dependency_injector.containers import DeclarativeContainer
 
-def create_server(Container: DeclarativeContainer, controllers) -> FastAPI:
-    container = Container()
+def create_server(container: DeclarativeContainer, controllers) -> FastAPI:
+    container = container()
     container.wire(modules=controllers)
     app = FastAPI()
     app.container = container

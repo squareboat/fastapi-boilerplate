@@ -1,3 +1,5 @@
+from typing import Dict
+
 class UserService:
-    def greet(self):
-        return "Hello there!"
+    def greet(self) -> Dict:
+        return {'message': "Hello there!"}

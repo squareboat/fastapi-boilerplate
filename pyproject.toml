@@ -17,6 +17,10 @@ orjson = "^3.8.5"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^2.15.10"
+taskipy = "^1.10.3"
+
+[tool.taskipy.tasks]
+dev = "python main.py"
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,4 +1,6 @@
+import os
+
 app = {
-    "name": "fastapi-boilerplate",
-    "port": 8080
+    "name": os.environ.get('APP_NAME') or "fastapi-boilerplate",
+    "port": os.environ.get('APP_PORT') or 8080
 }

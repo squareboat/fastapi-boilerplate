@@ -14,6 +14,7 @@ dependency-injector = "^4.41.0"
 uvicorn = "^0.20.0"
 orjson = "^3.8.5"
 pydantic = {extras = ["email"], version = "^1.10.4"}
+python-dotenv = "^0.21.1"
 
 
 [tool.poetry.group.dev.dependencies]

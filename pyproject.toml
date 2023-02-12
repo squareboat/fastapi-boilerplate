@@ -13,7 +13,15 @@ fastapi = "^0.89.1"
 dependency-injector = "^4.41.0"
 uvicorn = "^0.20.0"
 orjson = "^3.8.5"
+pydantic = {extras = ["email"], version = "^1.10.4"}
 
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.15.10"
+taskipy = "^1.10.3"
+
+[tool.taskipy.tasks]
+dev = "python main.py"
 
 [build-system]
 requires = ["poetry-core"]

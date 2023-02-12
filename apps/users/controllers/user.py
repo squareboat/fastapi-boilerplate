@@ -1,14 +1,13 @@
 from typing import Dict
-from fastapi import Depends
+from fastapi import Depends, HTTPException
 from dependency_injector.wiring import inject, Provide
 from pkgs.core import create_router
 from ..container import UserContainer
 from ..services import UserService
-from pkgs.core.http import HTTPResponse
-
+from ..validators.user import UserModel
 router = create_router('/api/v1')
-router.default_response_class = HTTPResponse
-@router.get('/users')
+
+@router.post('/users')
 @inject
-def get_users(user_service: UserService = Depends(Provide[UserContainer.user_service])) -> Dict:
+def get_users(user: UserModel, user_service: UserService = Depends(Provide[UserContainer.user_service])) -> Dict:
     return user_service.greet()

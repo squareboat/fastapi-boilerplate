@@ -1,5 +1,6 @@
 from typing import Dict
 from fastapi import Response
+from fastapi.responses import ORJSONResponse
 import orjson
 
 class HTTPResponse(Response):
@@ -13,4 +14,4 @@ class HTTPResponse(Response):
         response['data'] = content
         response['code'] = self.status_code
         response['success'] = True if (self.status_code >= 200 or self.status_code < 300) else False
-        return orjson.dumps(content)
+        return ORJSONResponse(response, status_code=self.status_code)

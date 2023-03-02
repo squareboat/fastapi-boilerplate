@@ -2,7 +2,7 @@ import re
 from .. import config
 
 def resolve(key: str):
-    pattern = r'(\w+.\w+)*(\.\w+)+'
+    pattern = r'^(\w+(.\w+)+)$'
     if not re.match(pattern, key):
         raise ValueError("Invalid key")
     

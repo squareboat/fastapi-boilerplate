@@ -14,6 +14,5 @@ FOR EACH ROW
 EXECUTE PROCEDURE on_update_timestamp();
 
 [down]
-DROP FUNCTION on_update_timestamp;
 DROP TRIGGER update_users_trigger on users;
 DROP TABLE users;

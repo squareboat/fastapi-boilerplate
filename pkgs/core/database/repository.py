@@ -1,12 +1,14 @@
 from tortoise import Tortoise
+from tortoise.models import Model
 
 class DBRepository:
-    def __init__(self, db: Tortoise) -> None:
+    def __init__(self, db: Tortoise, model: Model) -> None:
         self._db = db
+        self._model = model
     
 
-    def all(self):
-        pass
+    async def all(self):
+        return await self._model.all(using_db=self._db).values()
 
 
     def create(self):

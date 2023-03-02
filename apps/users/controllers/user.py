@@ -9,5 +9,6 @@ router = create_router('/api/v1')
 
 @router.post('/users')
 @inject
-async def get_users(user: UserModel, user_service: UserService = Depends(Provide[UserContainer.user_service]), db = Depends(Provide[UserContainer.db])) -> Dict:
-    return user_service.greet()
+async def get_users(user: UserModel, user_service: UserService = Depends(Provide[UserContainer.user_service])):
+    user = await user_service.get_all()
+    return user

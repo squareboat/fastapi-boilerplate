@@ -1,11 +1,11 @@
 [up]
 CREATE TABLE users (
-    id INTEGER,
+    id SERIAL,
     name VARCHAR(255),
     email VARCHAR(255),
     password VARCHAR(255),
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TRIGGER update_users_trigger

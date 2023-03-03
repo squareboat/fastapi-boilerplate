@@ -11,26 +11,29 @@ class DBRepository:
         return await self._model.all(using_db=self._db).values()
 
 
-    def create(self):
-        pass
+    async def create(self, data):
+        return await self._model.create(using_db=self._db, **data)
 
-    def create_or_update(self):
-        pass
+    async def create_or_update(self, data):
+        return await self._model.update_or_create(
+            data, 
+            using_db=self._db
+        )
 
-    def get_where(self):
-        pass
+    async def get_where(self, filter):
+        return await self._model.filter(**filter).values()
 
-    def exists(self):
-        pass
+    async def first_where(self, filter):
+        return await self._model.filter(**filter).first()
 
-    def first_where(self):
-        pass
+    async def exists(self, filter):
+        return await self._model.filter(**filter).count()
 
-    def bulk_insert(self):
-        pass
+    async def bulk_insert(self, data):
+        return await self._model.bulk_create(data, using_db=self._db)
     
-    def update(self):
-        pass
+    async def update_where(self, filter, data):
+        return await self._model.filter(**filter).update(**data)
 
-    def delete_where(self):
-        pass
+    async def delete_where(self, filter):
+        return await self._model.filter(filter).delete()

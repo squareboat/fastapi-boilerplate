@@ -1,6 +1,7 @@
 [up]
 CREATE TABLE users (
     id SERIAL,
+    uuid VARCHAR(255),
     name VARCHAR(255),
     email VARCHAR(255),
     password VARCHAR(255),

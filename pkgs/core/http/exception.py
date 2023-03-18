@@ -21,7 +21,6 @@ class ExceptionHandler(APIRoute):
     
     def parse_validation_error(self, errors: List[Dict]):
         responses = []
-        print(errors)
         for error in errors:
             responses.append({
                 "location": '->'.join(error['loc']),

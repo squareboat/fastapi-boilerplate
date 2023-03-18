@@ -8,8 +8,8 @@ class DBRepository:
         self._model = model
     
 
-    async def all(self):
-        return await self._model.all(using_db=self._db).values()
+    async def all(self, relations=[]):
+        return await self._model.all(using_db=self._db).prefetch_related(*relations).values()
 
 
     async def create(self, data):
@@ -21,11 +21,11 @@ class DBRepository:
             using_db=self._db
         )
 
-    async def get_where(self, filter):
-        return await self._model.filter(**filter).values()
+    async def get_where(self, filter, relations=[]):
+        return await self._model.filter(**filter).prefetch_related(*relations).values()
 
-    async def first_where(self, filter):
-        return await self._model.filter(**filter).first()
+    async def first_where(self, filter, relations=[]):
+        return await self._model.filter(**filter).prefetch_related(*relations).first()
 
     async def exists(self, filter):
         return await self._model.filter(**filter).count()
@@ -40,5 +40,5 @@ class DBRepository:
 
     async def delete_where(self, filter, error = True):
         rows = await self._model.filter(**filter).delete()
-        if rows <= 0 and True:
+        if rows <= 0 and error:
             raise HTTPException(detail=f"{self._model._meta._model.__qualname__} not found", status_code=status.HTTP_404_NOT_FOUND)

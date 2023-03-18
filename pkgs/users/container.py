@@ -1,7 +1,7 @@
 from dependency_injector.containers import DeclarativeContainer
 from dependency_injector.providers import Singleton
 from pkgs.core import core_container
-from pkgs.common.models.user import UserModel
+from .models import UserModel
 
 from .services import UserLibService
 from .repositories import UserRepository

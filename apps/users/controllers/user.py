@@ -1,7 +1,9 @@
 from fastapi import Depends
 from fastapi import status
 from dependency_injector.wiring import inject, Provide
-from pkgs.core import create_router
+from pkgs.core import create_router, Request
+from pkgs.core.transformer import transform
+from pkgs.common.transformers import UserTransformer
 from ..container import UserContainer
 from ..services import UserService
 from ..validators import CreateUserDTO, UpdateUserDTO
@@ -16,16 +18,18 @@ async def get_users(data: CreateUserDTO, user_service: UserService = Depends(Pro
 
 @router.get('/users')
 @inject
+@transform(UserTransformer)
 async def get_users(user_service: UserService = Depends(Provide[UserContainer.user_service])):
     user = await user_service.get_all_users()
     return user
 
 
 @router.get('/users/{id}')
+@transform(UserTransformer)
 @inject
-async def get_users(id: int, user_service: UserService = Depends(Provide[UserContainer.user_service])):
+async def get_users(id: int, request: Request, user_service: UserService = Depends(Provide[UserContainer.user_service])):
     user = await user_service.get_user_by_id(id)
-    return user
+    return user.to_dict()
 
 
 @router.patch('/users/{id}', status_code=status.HTTP_204_NO_CONTENT)

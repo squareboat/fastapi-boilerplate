@@ -1,5 +1,6 @@
-from tortoise.fields import IntField, CharField, DatetimeField
+from tortoise.fields import IntField, CharField, DatetimeField, ReverseRelation
 from pkgs.core.database import BaseModel
+from pkgs.jobs.models import JobModel
 
 class UserModel(BaseModel):
     id = IntField(pk=True)
@@ -7,6 +8,7 @@ class UserModel(BaseModel):
     name = CharField(max_length=255)
     email = CharField(max_length=255)
     password = CharField(max_length=255)
+    jobs = ReverseRelation["JobModel"]
     created_at = DatetimeField(auto_now=True)
     updated_at = DatetimeField(auto_now=True)
 

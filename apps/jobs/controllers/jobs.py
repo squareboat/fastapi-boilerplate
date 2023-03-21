@@ -2,8 +2,8 @@ from fastapi import Depends
 from fastapi import status
 from dependency_injector.wiring import inject, Provide
 from pkgs.core import create_router
-# from pkgs.core.transformer import transform
-# from pkgs.common.transformers import UserTransformer
+from pkgs.core.transformer import transform
+from pkgs.common.transformers import JobTransformer
 from ..container import JobContainer
 from ..services import JobService
 from ..validators import CreateJobDTO, UpdateJobDTO
@@ -25,7 +25,7 @@ async def get_jobs(job_service: JobService = Depends(Provide[JobContainer.job_se
 
 
 @router.get('/jobs/{id}')
-# @transform(UserTransformer)
+@transform(JobTransformer)
 @inject
 async def get_job(id: int, job_service: JobService = Depends(Provide[JobContainer.job_service])):
     job = await job_service.get_job_by_id(id)

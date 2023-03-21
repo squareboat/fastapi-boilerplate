@@ -18,7 +18,8 @@ class UserService:
         return await self.service.repo.all()
     
     async def get_user_by_id(self, id: int):
-        return await self.service.repo.first_where({ "id": id })
+        user = await self.service.repo.first_where({ "id": id }, relations=['jobs'])
+        return user
     
     async def update_user_by_id(self, data: UpdateUserDTO, filter):
         return await self.service.repo.update_where(filter, data.dict(exclude_none=True))

@@ -13,7 +13,8 @@ class Transformer(ABC):
         return result
 
     def work(self, data):
-        result = self.transform(data)
+        result = { k: v for k, v in self.transform(data).items() if v is not None }
+
         members = [attr for attr in dir(self) if not callable(getattr(self, attr)) and not attr.startswith("_")]
 
         return result

@@ -9,8 +9,8 @@ class DBRepository:
     
 
     async def all(self, relations=[]):
-        return await self._model.all(using_db=self._db).prefetch_related(*relations).values()
-
+        query = await self._model.all(using_db=self._db).prefetch_related(*relations)
+        return query
 
     async def create(self, data):
         return await self._model.create(using_db=self._db, **data)

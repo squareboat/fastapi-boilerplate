@@ -4,6 +4,7 @@ from dependency_injector.wiring import inject, Provide
 from pkgs.core import create_router
 from pkgs.core.transformer import transform
 from pkgs.common.transformers import JobTransformer
+from pkgs.core.http import Request
 from ..container import JobContainer
 from ..services import JobService
 from ..validators import CreateJobDTO, UpdateJobDTO
@@ -18,16 +19,16 @@ async def create_job(data: CreateJobDTO, job_service: JobService = Depends(Provi
 
 @router.get('/jobs')
 @inject
-# @transform(UserTransformer)
-async def get_jobs(job_service: JobService = Depends(Provide[JobContainer.job_service])):
+@transform(JobTransformer)
+async def get_jobs(request: Request, job_service: JobService = Depends(Provide[JobContainer.job_service])):
     jobs = await job_service.get_all_job()
-    return jobs
+    return list(map(lambda x: x.to_dict(), jobs))
 
 
 @router.get('/jobs/{id}')
 @transform(JobTransformer)
 @inject
-async def get_job(id: int, job_service: JobService = Depends(Provide[JobContainer.job_service])):
+async def get_job(request: Request, id: int, job_service: JobService = Depends(Provide[JobContainer.job_service])):
     job = await job_service.get_job_by_id(id)
     return job.to_dict()
 

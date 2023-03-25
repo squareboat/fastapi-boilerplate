@@ -15,7 +15,7 @@ class JobService:
         return await self.service.repo.create(payload)
     
     async def get_all_job(self):
-        return await self.service.repo.all()
+        return await self.service.repo.all(relations=['created_by'])
     
     async def get_job_by_id(self, id: int):
         return await self.service.repo.first_where({ "id": id }, relations=['created_by'])

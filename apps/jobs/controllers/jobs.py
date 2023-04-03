@@ -3,18 +3,21 @@ from fastapi import status
 from dependency_injector.wiring import inject, Provide
 from pkgs.core import create_router
 from pkgs.core.transformer import transform
+from pkgs.core.validators import validate
 from pkgs.common.transformers import JobTransformer
+from pkgs.common.validators import CreateJob, PathParams
 from pkgs.core.http import Request
 from ..container import JobContainer
 from ..services import JobService
-from ..validators import CreateJobDTO, UpdateJobDTO
+from ..validators import UpdateJobDTO
 
 router = create_router('/api/v1')
 
 @router.post('/jobs')
 @inject
-async def create_job(data: CreateJobDTO, job_service: JobService = Depends(Provide[JobContainer.job_service])):
-    job = await job_service.create_job(data)
+@validate(CreateJob)
+async def create_job(request: Request, inputs: CreateJob, job_service: JobService = Depends(Provide[JobContainer.job_service])):
+    job = await job_service.create_job(inputs)
     return job
 
 @router.get('/jobs')
@@ -25,11 +28,12 @@ async def get_jobs(request: Request, job_service: JobService = Depends(Provide[J
     return list(map(lambda x: x.to_dict(), jobs))
 
 
+@validate(PathParams)
 @router.get('/jobs/{id}')
-@transform(JobTransformer)
 @inject
+@transform(JobTransformer)
 async def get_job(request: Request, id: int, job_service: JobService = Depends(Provide[JobContainer.job_service])):
-    job = await job_service.get_job_by_id(id)
+    job = await job_service.get_job_by_id({})
     return job.to_dict()
 
 

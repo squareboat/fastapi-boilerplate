@@ -1,5 +1,5 @@
 from tortoise.fields import IntField, CharField, DatetimeField, ReverseRelation
-from pkgs.core.database import BaseModel
+from pkgs.core import BaseModel
 from pkgs.jobs.models import JobModel
 
 class UserModel(BaseModel):

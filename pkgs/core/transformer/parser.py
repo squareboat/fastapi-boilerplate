@@ -3,6 +3,7 @@ def parse_includes(exp: str):
     p = []
     inArray = False
     parsed_obj = []
+    final = {}
 
     length = len(exp)
     i = 0
@@ -36,8 +37,6 @@ def parse_includes(exp: str):
             p.append(chr(ch))
 
         i+=1
-
-        final = {}
 
         for p in parsed_obj:
             final[p['name']] = p.get('args')

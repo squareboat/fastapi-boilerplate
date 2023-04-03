@@ -1,5 +1,5 @@
 from tortoise.fields import IntField, CharField, DatetimeField, TextField, ForeignKeyField
-from pkgs.core.database import BaseModel
+from pkgs.core import BaseModel
 
 class JobModel(BaseModel):
     id = IntField(pk=True)

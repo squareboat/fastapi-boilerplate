@@ -11,7 +11,7 @@
 - [x] HTTP package
 - [x] Tortoise ORM integration using dependency injectors
 - [x] Base DB repository class
-- [ ] Relationship mappings
-- [ ] Transformers
+- [x] Relationship mappings
+- [x] Transformers
 - [ ] Extra validators
 - [ ] Docs using mkdocs

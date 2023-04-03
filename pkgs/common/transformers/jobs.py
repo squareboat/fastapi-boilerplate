@@ -1,4 +1,4 @@
-from pkgs.core.transformer import Transformer
+from pkgs.core import Transformer
 from .users import UserTransformer
 
 class JobTransformer(Transformer):

@@ -15,6 +15,7 @@ uvicorn = "^0.20.0"
 orjson = "^3.8.5"
 pydantic = {extras = ["email"], version = "^1.10.4"}
 python-dotenv = "^0.21.1"
+tortoise-orm = {extras = ["asyncpg"], version = "^0.19.3"}
 
 
 [tool.poetry.group.dev.dependencies]

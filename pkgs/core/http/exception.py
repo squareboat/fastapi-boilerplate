@@ -2,6 +2,7 @@ from typing import Callable, Dict, List
 from fastapi import Request, Response
 from fastapi.responses import ORJSONResponse
 from fastapi.routing import APIRoute
+from .request import Request
 from fastapi.exceptions import HTTPException, RequestValidationError
 
 class ExceptionHandler(APIRoute):
@@ -10,6 +11,7 @@ class ExceptionHandler(APIRoute):
 
         async def custom_route_handler(request: Request) -> Request:
             try:
+                request = Request(request.scope, request.receive)
                 response: Response = await route_handler(request)
                 return response
             except HTTPException as httpe:
@@ -21,7 +23,6 @@ class ExceptionHandler(APIRoute):
     
     def parse_validation_error(self, errors: List[Dict]):
         responses = []
-        print(errors)
         for error in errors:
             responses.append({
                 "location": '->'.join(error['loc']),
